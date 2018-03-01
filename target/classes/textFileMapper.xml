@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Info.TextFileMapperI">
+    <resultMap type="Info.TextFile" id="TextFileMap">
+        <id column="openId" property="openId"/>
+        <result column="filename" property="filename"/>
+        <result column="localurl" property="localurl"/>
+        <result column="status" property="status"/>
+        <result column="wordNum" property="wordNum"/>
+        <result column="newurl" property="newurl"/>
+        <result column="createtime" property="createtime"/>
+    </resultMap>
+    <select id="selectFile" parameterType="String"  resultMap="TextFileMap">
+        select * from TextFile WHERE openId=#{openId}
+    </select>
+    <insert id="insertFile" parameterType="Info.TextFile">
+        INSERT into TextFile (openId,fileName,status,localurl,wordNum) VALUES (#{openId},#{filename},#{status},#{localurl},#{wordNum})
+    </insert>
+    <select id="getNewurl" parameterType="Info.TextFile" resultType="String">
+        SELECT  newurl from TextFile WHERE openId=#{openId} AND filename=#{filename}
+    </select>
+</mapper>
